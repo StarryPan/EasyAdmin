@@ -1,0 +1,67 @@
+<style>
+    .layui-unselect .layui-layedit-tool {
+        display: none !important;
+    }
+    
+</style>
+<div class="layuimini-container" style="display: none;">
+    <div class="layuimini-main">
+        <form id="app-form" class="layui-form layuimini-form">
+
+            <div class="layui-form-item layui-row layui-col-xs12">
+                <label class="layui-form-label required">服务器</label>
+                <div class="layui-input-block">
+                    <select name="server_id" lay-verify="required" lay-reqtext="请选择服务器。" lay-search>
+                        <option value="">请选择服务器</option>
+                        {foreach $serverList as $vo}
+                            <option value="{$vo.id}" {if ($row.server_id??'') == $vo.id}selected{/if}>{$vo.id}. {$vo.name}</option>
+                        {/foreach}
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-form-item layui-row layui-col-xs12">
+                <label class="layui-form-label required">补单商品</label>
+                <div class="layui-input-block">
+                    <select name="detail_id" lay-verify="required" lay-reqtext="请选择补单商品。" lay-search>
+                        <option value="">请选择补单商品</option>
+                        {foreach $cfgs as $did => $dname}
+                            <option value="{$did}" {if ($row.detail_id??'') == $did}selected{/if}>{$did}. {$dname}</option>
+                        {/foreach}
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">订单号</label>
+                <div class="layui-input-block">
+                    <input type="text" name="order_id" class="layui-input" placeholder="请输入订单号">
+                    <tip>订单号必须保证唯一性，可不填（系统随机）</tip>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label required">用户ID</label>
+                <div class="layui-input-block">
+                    <input type="text" id="userpms" name="userpms" class="layui-input" lay-verify="required" lay-reqtext="用户ID不能为空" placeholder="请输入用户ID" value="{$row.userpms??''}">
+                </div>
+            </div>
+
+            <div class="hr-line"></div>
+
+            <div class="layui-form-item layui-row layui-col-xs12">
+                <label class="layui-form-label required">验证码</label>
+                <div class="layui-input-block">
+                    <input type="text" id="clean_captcha" name="captcha" class="layui-input layui-input-inline-block" lay-verify="required" lay-reqtext="验证码不能为空。" placeholder="请输入验证码" maxlength="4">
+                    <img id="refreshCaptcha" class="validateImg" title="点击刷新验证码" src="{:url('server.conflict/captcha')}" onclick="this.src='{:url(\'server.conflict/captcha\')}?seed='+Math.random()">
+                </div>
+            </div>
+
+            <div class="layui-form-item text-center">
+                <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" lay-submit {if ($row.userpms??'') != null}title-confirm="确认要补单给该玩家 <b style='color: red;'>{$row.userpms}</b> 吗？"{/if}>补单</button>
+                <button type="submit" class="layui-btn layui-btn-sm list-btn">日志</button>
+            </div>
+
+        </form>
+    </div>
+</div>

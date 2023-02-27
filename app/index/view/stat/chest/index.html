@@ -1,0 +1,35 @@
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="layui-row">
+            <form class="layui-form layui-form-pane layui-col-md12 x-so">
+                <label class="layui-form-label">服务器</label>
+                <div class="layui-input-inline">
+                    <select name="server_id" lay-verify="required" lay-reqtext="请选择服务器。" lay-search="">
+                        <option value="">请选择服务器</option>
+                        {foreach $cfgs.server_list as $skey => $sname}
+                            <option value="{$skey}" {if ($query.server_id ?? '') == $skey}selected="" {/if}>{$sname}</option>
+                        {/foreach}
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="cfg_id" lay-search="">
+                        <option value="">请选择抽卡配置</option>
+                        {foreach $cfgs.chest_list as $ckey => $cname}
+                            <option value="{$ckey}" {if ($query.cfg_id ?? '') == $ckey}selected="" {/if}>{$ckey} {$cname}</option>
+                        {/foreach}
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <input type="number" name="count" class="layui-input" lay-verify="required" lay-reqtext="抽卡次数不能为空" placeholder="请输入抽卡次数" value="{$query.count ?? ''}">
+                </div>
+                <button class="layui-btn" lay-submit="false" title="模拟">
+                    <i class="layui-icon">&#xe615;</i>
+                </button>
+            </form>
+        </div>
+
+        <br/>
+        
+        <table id="currentTable" class="layui-table layui-hide" lay-filter="currentTable"></table>
+    </div>
+</div>

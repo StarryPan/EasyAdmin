@@ -1,0 +1,68 @@
+<div class="layuimini-container">
+    <form id="app-form" class="layui-form layuimini-form">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">ID</label>
+            <div class="layui-input-block">
+                <input type="text" name="id" disabled class="layui-input" value="{$row.id}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">标题</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" class="layui-input" lay-verify="required" lay-reqtext="请输入标题" placeholder="请输入标题" value="{$row.title}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-block">
+                <input type="number" name="sort" class="layui-input" placeholder="排序" value="{$row.sort}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">状态</label>
+            <div class="layui-input-block">
+                <select name="status" lay-verify="required" lay-reqtext="请选择状态" lay-search>
+                    <option value="0" {if ($row.status ?? 0)=='0'}selected="" {/if}>正常</option>
+                    <option value="1" {if ($row.status ?? 0)=='1'}selected="" {/if}>关闭</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">开启类型</label>
+            <div class="layui-input-block">
+                <select name="open_type" lay-verify="required" lay-reqtext="请选择开启类型" lay-search>
+                    <option value="">任务开启</option>
+                    {foreach $openTypes as $vk => $vo}
+                        <option value="{$vk}" {if ($row.open_type ?? 0)==$vk}selected="" {/if}>{$vo}</option>
+                    {/foreach}
+                </select>
+                <tip>请选择活动的开启类型。</tip>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">开启数值</label>
+            <div class="layui-input-block">
+                <input type="text" name="open_value" class="layui-input" placeholder="请输入开启数值" value="{$row.open_value}">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">描述信息</label>
+            <div class="layui-input-block">
+                <textarea name="descr" class="layui-textarea" placeholder="请输入描述信息">{$row.descr}</textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item text-center">
+            <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" lay-submit>确认</button>
+            <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重置</button>
+        </div>
+
+    </form>
+</div>

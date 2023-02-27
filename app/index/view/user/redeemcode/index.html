@@ -1,0 +1,15 @@
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <input type="hidden" id="admin_list" value="{$adminList}">
+        <input type="hidden" id="config_items" value="{$configItems}">
+        <input type="hidden" id="channel_list" value="{$channelList}">
+        <input type="hidden" id="redeem_types" value="{$redeemTypes}">
+
+        <table id="currentTable" class="layui-table layui-hide"
+               data-auth-add="{:auth('user.redeemcode/add')}"
+               data-auth-edit="{:auth('user.redeemcode/edit')}"
+               data-auth-delete="{:auth('user.redeemcode/delete')}"
+               lay-filter="currentTable">
+        </table>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+<link rel="stylesheet" href="__STATIC__/index/css/jquery.json-viewer.css" media="all">
+<div class="layuimini-container">
+    <form id="app-form" class="layui-form layuimini-form">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">KEY</label>
+            <div class="layui-input-block">
+                <input type="text" name="cfg_key" class="layui-input" lay-verify="required" lay-reqtext="配置的KEY不能为空。" placeholder="请输入配置的KEY" value="">
+                <tip>请填写唯一的KEY</tip>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="cfg_name" class="layui-input" lay-verify="required" lay-reqtext="配置名称不能为空。" placeholder="请输入配置名称" value="">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">配置语言</label>
+            <div class="layui-input-block">
+                <select name="lan_type">
+                    <option value="0">中文</option>
+                    <option value="1">英文</option>
+                    <option value="2">日文</option>
+                    <option value="3">韩文</option>
+                    <option value="4">泰文</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">文件信息</label>
+            <div class="layui-input-block layuimini-upload">
+                <input name="file_url" class="layui-input layui-col-xs6" lay-verify="required" lay-reqtext="请上传文件" placeholder="请上传文件" value="">
+                <div class="layuimini-upload-btn">
+                    <a class="layui-btn" data-upload="file_url" data-upload-number="one" data-upload-exts="json" data-upload-icon="json"><i class="fa fa-upload"></i> 点击上传，或将文件拖拽到此处</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="hr-line"></div>
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">配置数据</label>
+            <div class="layui-input-block">
+                <pre class="json-viewer-pre" json-data=""></pre>
+            </div>
+        </div>
+
+        <div class="layui-form-item text-center">
+            <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" lay-submit>确认</button>
+            <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重置</button>
+        </div>
+
+    </form>
+</div>

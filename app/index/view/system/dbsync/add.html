@@ -1,0 +1,143 @@
+<div class="layuimini-container">
+    <form id="app-form" class="layui-form layuimini-form">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">服务器</label>
+            <div class="layui-input-block">
+                <select name="server_id" lay-verify="required" lay-reqtext="请选择服务器。" lay-filter="select-server" lay-search>
+                    <option value="">请选择服务器</option>
+                    {foreach $serverList as $sid => $sname}
+                    <option value="{$sid}">{$sname}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">用户ID</label>
+            <div class="layui-input-block">
+                <input type="text" name="uid" class="layui-input" lay-verify="required" lay-reqtext="用户的ID不能为空。" placeholder="请输入用户UID" value="">
+                <tip>用户的唯一ID：注意指定的UID操作后，数据无法恢复！</tip>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">等级</label>
+            <div class="layui-input-block">
+                <input type="number" name="lv" class="layui-input" placeholder="请输入用户的等级" value="">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="nickname" class="layui-input" placeholder="请输入用户的名称" value="">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">全资源</label>
+            <div class="layui-input-block">
+                <select name="res">
+                    <option value="0">否</option>
+                    <option value="1">是</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">全道具</label>
+            <div class="layui-input-block">
+                <select name="item">
+                    <option value="0">否</option>
+                    <option value="1">是</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">全关卡</label>
+            <div class="layui-input-block">
+                <select name="stage">
+                    <option value="0">否</option>
+                    <option value="1">是</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">全任务</label>
+            <div class="layui-input-block">
+                <select name="quest">
+                    <option value="0">否</option>
+                    <option value="1">是</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">全装备</label>
+            <div class="layui-input-block">
+                <select name="equip">
+                    <option value="0">否</option>
+                    <option value="1">是</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">显示日志</label>
+            <div class="layui-input-block">
+                <select name="showlog">
+                    <option value="0">否</option>
+                    <option value="1">是</option>
+                </select>
+                <tip>显示客户端Debug日志</tip>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">跳过教程</label>
+            <div class="layui-input-block">
+                <select name="tutorial">
+                    <option value="0">否</option>
+                    <option value="1">是</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">全玩家技能</label>
+            <div class="layui-input-block">
+                <select name="user_book">
+                    <option value="0">否</option>
+                    <option value="1">是</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">全属性角色</label>
+            <div class="layui-input-block">
+                <select name="hero">
+                    <option value="0">否</option>
+                    <option value="1">是</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">自定义道具</label>
+            <div class="layui-input-block">
+                <textarea name="defin_items" class="layui-textarea" placeholder="请输入道具格式：[1|100]"></textarea>
+            </div>
+        </div>
+
+        <div class="hr-line"></div>
+        <div class="layui-form-item text-center">
+            <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" lay-submit>确认</button>
+            <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重置</button>
+        </div>
+
+    </form>
+</div>

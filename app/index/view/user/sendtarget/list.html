@@ -1,0 +1,12 @@
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <input type="hidden" id="server_id" value="{$server_id}">
+        <input type="hidden" id="mail_types" value="{$mail_types}">
+        <input type="hidden" id="target_types" value="{$target_types}">
+        <table id="currentTable" class="layui-table layui-hide" 
+            data-auth-copy="{:auth('user.sendtarget/copy')}"
+            data-auth-delete="{:auth('user.sendtarget/list_delete')}"
+            lay-filter="currentTable">
+        </table>
+    </div>
+</div>

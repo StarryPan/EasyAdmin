@@ -1,0 +1,150 @@
+<div class="layuimini-container">
+    <style>
+        .select-animal-delete {
+            transition: all .3s;
+            -webkit-transition: all .3s;
+        }
+
+        .select-animal-delete:hover {
+            color: white;
+            background-color: #ff5722 !important;
+        }
+    </style>
+    <form id="app-form" class="layui-form layuimini-form">
+
+        <!-- 服务器数量 -->
+        <input type="hidden" id="rew_num" name="rew_num" value="1">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">活动</label>
+            <div class="layui-input-block">
+                <select name="act_id" lay-verify="required" lay-reqtext="请选择活动" lay-search>
+                    <option value="">请选择活动</option>
+                    {foreach $activityList as $vk => $vo}
+                        <option value="{$vk}">{$vo}</option>
+                    {/foreach}
+                </select>
+                <tip>请选择任务所属的活动。</tip>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" class="layui-input" lay-verify="required" lay-reqtext="请输入名称" placeholder="请输入名称" value="">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-block">
+                <input type="number" name="sort" class="layui-input" placeholder="排序" value="">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">目标类型</label>
+            <div class="layui-input-block">
+                <select name="goal" lay-verify="required" lay-reqtext="请选择目标类型" lay-search>
+                    <option value="">任务目标</option>
+                    {foreach $goalList as $vo}
+                        <option value="{$vo.id}">{$vo.id}. {$vo.name}</option>
+                    {/foreach}
+                </select>
+                <tip>请选择任务的目标类型。</tip>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">目标数值</label>
+            <div class="layui-input-block">
+                <input type="text" name="value" class="layui-input" lay-verify="required" lay-reqtext="请输入目标数值" placeholder="请输入目标数值" value="">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">目标参数</label>
+            <div class="layui-input-block">
+                <input type="text" name="parm" class="layui-input" placeholder="目标参数" value="">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">前置任务</label>
+            <div class="layui-input-block">
+                <input type="text" name="before" class="layui-input" placeholder="前置任务" value="">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">跳转目标</label>
+            <div class="layui-input-block">
+                <input type="text" name="skip_to" class="layui-input" placeholder="跳转目标" value="">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">描述信息</label>
+            <div class="layui-input-block">
+                <textarea name="desc" class="layui-textarea" placeholder="请输入描述信息"></textarea>
+            </div>
+        </div>
+
+        <div class="hr-line"></div>
+
+        <div class="layui-form-item layui-row layui-col-xs12">
+            <label class="layui-form-label">添加奖励</label>
+            <div class="layui-input-block">
+                <select lay-filter="add-rews">
+                    <option value="">请选择添加的数量</option>
+                    <option value="1">添加 1 条</option>
+                    <option value="2">添加 2 条</option>
+                    <option value="5">添加 5 条</option>
+                    <option value="10">添加 10 条</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- 签到奖励选项 -->
+        <div class="layui-form-item layui-row layui-col-xs12">
+            <label class="layui-form-label required">任务奖励</label>
+            <div class="layui-input-block">
+                <table class="layui-table" v-for="( item, index ) in rew_list">
+                    <tbody>
+                        <tr align="center">
+                            <td width="20" rowspan="3" title="删除奖励" class="select-animal-delete" v-on:click="delete_rew( index )">
+                                <i class="layui-icon">&#xe640;</i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="60%">
+                                <select v-bind:name="item.key_itemid" lay-search>
+                                    <option value="">请选择道具 {{index + 1}}</option>
+                                    <template v-for="(cfig_val, cfig_key) in config_items">
+                                        <option v-if="cfig_val.id == item.itemid" selected="selected"
+                                            v-bind:value="cfig_val.id">id: {{cfig_val.id}} | name: {{cfig_val.name}} | desc: {{cfig_val.desc}}</option>
+                                        <option v-else v-bind:value="cfig_val.id">id: {{cfig_val.id}} | name: {{cfig_val.name}} | desc: {{cfig_val.desc}}</option>
+                                    </template>
+                                </select>
+                            </td>
+                            <td>
+                                <input v-if="item.itemcnt > 0" class="layui-input" type="number" placeholder="请输入数量"
+                                    v-bind:name="item.key_itemcnt" v-bind:id="item.key_itemcnt"
+                                    v-bind:value="item.itemcnt">
+                                <input v-else class="layui-input" type="number" placeholder="请输入数量"
+                                    v-bind:name="item.key_itemcnt" v-bind:id="item.key_itemcnt">
+                                <div class="table-right-input-label">数量</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="layui-form-item text-center">
+            <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" lay-submit>确认</button>
+            <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重置</button>
+        </div>
+
+    </form>
+</div>

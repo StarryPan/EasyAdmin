@@ -1,0 +1,315 @@
+<style>
+    .channel-config, .layui-form-pane {
+        display: none;
+    }
+</style>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="layui-row">
+            <form class="layui-form layui-form-pane layui-col-md12 x-so">
+                <label class="layui-form-label">渠道</label>
+                <div class="layui-input-inline">
+                    <select name="channel_key" lay-verify="required" lay-search="">
+                        {foreach $cfgs.channel_list as $ckey => $cname}
+                            <option value="{$ckey}" {if $channel_key == $ckey}selected="" {/if}>{$cname}</option>
+                        {/foreach}
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="pre_state" lay-verify="required" lay-search="">
+                        <option value="1" {if $pre_state == 1}selected="" {/if}> 内网 </option>
+                        <option value="0" {if $pre_state == 0}selected="" {/if}> 外网 </option>
+                    </select>
+                </div>
+                <button class="layui-btn channel-search">
+                    <i class="layui-icon" title="搜索">&#xe615;</i>
+                </button>
+            </form>
+        </div>
+
+        <form class="layui-form hide">
+            <table class="layui-table" lay-skin="line">
+                <tr class="tr-loading">
+                    <th colspan="9" style="text-align: center;padding-top: 12px;">
+                        <i class="layui-icon layui-anim layui-anim-rotate layui-anim-loop layui-icon-loading" style="font-size: 25px;"></i>
+                    </th>
+                </tr>
+
+                <tbody class="channel-config">
+                    <tr>
+                        <td width="30%">
+                            配置环境( pre_state )
+                        </td>
+                        <td>
+                            <select name="pre_state" disabled lay-search="">
+                                <option value="1" {if $pre_state == 1}selected="" {/if}> 内网 </option>
+                                <option value="0" {if $pre_state == 0}selected="" {/if}> 外网 </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">
+                            渠道KEY( channel_key )
+                        </td>
+                        <td>
+                            <select name="channel_key" lay-verify="required" disabled lay-search="">
+                                {foreach $cfgs.channel_list as $ckey => $cname}
+                                    <option value="{$ckey}" {if $channel_key == $ckey}selected="" {/if}>{$cname}</option>
+                                {/foreach}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">
+                            游戏语言( lan )
+                        </td>
+                        <td>
+                            <select name="lan" lay-search="">
+                                {foreach $cfgs.lans_list as $ckey => $cname}
+                                    <option value="{$ckey}" {if $channel_key == $ckey}selected="" {/if}>{$cname}</option>
+                                {/foreach}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">
+                            游戏教程( is_tuto )
+                        </td>
+                        <td>
+                            <select name="is_tuto" lay-search="">
+                                <option value="0" {if ($info.is_tuto ?? 0) == '0'}selected="" {/if}> 关闭教程 </option>
+                                <option value="1" {if ($info.is_tuto ?? 0) == '1'}selected="" {/if}> 开启教程 </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">
+                            更新数据( is_update )
+                        </td>
+                        <td>
+                            <select name="is_update" lay-search="">
+                                <option value="0" {if ($info.is_update ?? 0) == '0'}selected="" {/if}> 关闭更新 </option>
+                                <option value="1" {if ($info.is_update ?? 0) == '1'}selected="" {/if}> 开启更新 </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">
+                            更新地址( update_url )
+                        </td>
+                        <td>
+                            <input type="text" name="update_url" placeholder="请填写更新地址" class="layui-input" value="{$info.update_url ?? ''}">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="30%">
+                            预热地址( hot_url )
+                        </td>
+                        <td>
+                            <input type="text" name="hot_url" placeholder="请填写预热地址" class="layui-input" value="{$info.hot_url ?? ''}">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="30%">
+                            审核资源地址( review_url )
+                        </td>
+                        <td>
+                            <input type="text" name="review_url" placeholder="请填写审核资源地址" class="layui-input" value="{$info.review_url ?? ''}">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="30%">
+                            全量包文件地址( full_patch_url )
+                        </td>
+                        <td>
+                            <input type="text" name="full_patch_url" placeholder="请填写全量包文件地址" class="layui-input" value="{$info.full_patch_url ?? ''}">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="30%">
+                            分享地址( share_url )
+                        </td>
+                        <td>
+                            <input type="text" name="share_url" placeholder="请填写分享地址" class="layui-input" value="{$info.share_url ?? ''}">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="30%">
+                            账号系统( account_sys )
+                        </td>
+                        <td>
+                            <select name="account_sys" lay-search="">
+                                {foreach $cfgs.account_sys as $ckey => $cname}
+                                    <option value="{$ckey}" {if ($info.account_sys ?? '') == $ckey}selected="" {/if}>{$cname}</option>
+                                {/foreach}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">
+                            审核状态( check_status )
+                        </td>
+                        <td>
+                            <select name="check_status" lay-search="">
+                                <option value="1" {if ($info.check_status ?? 0) == '1'}selected="" {/if}> 审核中 </option>
+                                <option value="0" {if ($info.check_status ?? 0) == '0'}selected="" {/if}> 已审核 </option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <!-- 超级管理员权限 -->
+                    {if $max_auth}
+                        <tr>
+                            <td width="30%">
+                                服务器组( server_group )
+                            </td>
+                            <td>
+                                <select name="group_key" lay-search>
+                                    <option value="">请选择服务器组</option>
+                                    {foreach $cfgs.server_group as $ckey => $cname}
+                                        <option value="{$ckey}" {if ($info.group_key ?? '') == $ckey}selected="" {/if}>{$cname}</option>
+                                    {/foreach}
+                                </select>
+                            </td>
+                        </tr>
+                    {/if}
+
+                    <tr>
+                        <td width="30%">
+                            下载线程数量( ThreadCount )
+                        </td>
+                        <td>
+                            <input type="text" name="ThreadCount" placeholder="请填写下载线程的数量" class="layui-input" value="{$info.ThreadCount ?? 0}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">
+                            审核版本号( check_version )
+                        </td>
+                        <td>
+                            <input type="text" name="check_version" placeholder="请填写审核版本号" class="layui-input" value="{$info.check_version ?? ''}">
+                        </td>
+                    </tr>
+                    <tr v-if="right_info.all_unlock > 0">
+                        <td width="30%">
+                            默认服务器( default_server )
+                        </td>
+                        <td>
+                            <select name="default_server" lay-search>
+                                <option value="">请选择服务器组</option>
+                                {foreach $cfgs.server_list as $ckey => $cname}
+                                    <option value="{$ckey}" {if ($info.default_server ?? '') == $ckey}selected="" {/if}>{$cname}</option>
+                                {/foreach}
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="30%">
+                            否开启维护( is_maintain )
+                        </td>
+                        <td>
+                            <select name="is_maintain" lay-search>
+                                <option value="0" {if ($info.is_maintain ?? 0) == '0'}selected="" {/if}> 否 </option>
+                                <option value="1" {if ($info.is_maintain ?? 0) == '1'}selected="" {/if}> 是 </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">
+                            维护白名单( maintain_ip )
+                        </td>
+                        <td>
+                            <input type="text" name="maintain_ip" placeholder="请填写维护白名单" class="layui-input" value="{$info.maintain_ip ?? ''}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">
+                            预计维护内容( maintain_info )
+                        </td>
+                        <td>
+                            <input type="text" name="maintain_info" placeholder="请填写预计维护内容" class="layui-input" value="{$info.maintain_info ?? ''}">
+                        </td>
+                    </tr>
+
+                    <!-- 多语言 -->
+                    <tr>
+                        <td width="30%">
+                            国服显示预计维护内容( maintain_info_cn )
+                        </td>
+                        <td>
+                            <input type="text" name="maintain_info_cn" placeholder="请填写国服显示预计维护内容" class="layui-input" value="{$info.maintain_info_cn ?? ''}">
+                        </td>
+                    </tr>
+                    <!-- 多语言END -->
+
+                    <tr>
+                        <td width="30%">
+                            强制更新地址( force_update_url )
+                        </td>
+                        <td>
+                            <input type="text" name="force_update_url" placeholder="请填写强制更新地址" class="layui-input" value="{$info.force_update_url ?? ''}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">
+                            强制更新版本号( force_update_version )
+                        </td>
+                        <td>
+                            <input type="text" name="force_update_version" placeholder="请填写强制更新的版本号" class="layui-input" value="{$info.force_update_version ?? ''}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">
+                            最低版本号( MinVersion )
+                        </td>
+                        <td>
+                            <input type="text" name="MinVersion" placeholder="请填写 最低版本号" class="layui-input" value="{$info.MinVersion ?? ''}">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="30%">
+                            审核中子渠道( SubReview )
+                        </td>
+                        <td>
+                            <input type="text" name="SubReview" placeholder="请填写 审核中子渠道" class="layui-input" value="{$info.SubReview ?? ''}">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="30%">
+                            大小( OBB_Size )
+                        </td>
+                        <td>
+                            <input type="text" name="OBB_Size" placeholder="请填写obb 大小" class="layui-input" value="{$info.OBB_Size ?? ''}">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="30%">
+                            位置( obb_url )
+                        </td>
+                        <td>
+                            <input type="text" name="obb_url" placeholder="请填写obb 位置" class="layui-input" value="{$info.obb_url ?? ''}">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            <button type="submit" class="layui-btn" lay-submit>
+                                保存配置
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+
+    </div>
+</div>

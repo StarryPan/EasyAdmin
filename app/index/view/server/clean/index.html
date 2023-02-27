@@ -1,0 +1,46 @@
+<style>
+    .layui-input-inline-block {
+        display: inline-block;
+    }
+</style>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <form id="app-form" class="layui-form layuimini-form" action="javascript:;">
+
+            <div class="layui-form-item layui-row layui-col-xs12">
+                <label class="layui-form-label required">服务器</label>
+                <div class="layui-input-block">
+                    <select id="server_id" name="server_id" lay-verify="required" lay-reqtext="请选择服务器。">
+                        <option value="">请选择服务器</option>
+                        {foreach $serverList as $vo}
+                            <option value="{$vo.id}">{$vo.name|raw}</option>
+                        {/foreach}
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label required">日志库</label>
+                <div class="layui-input-block">
+                    <select name="clear_log">
+                        <option value="0">保留日志</option>
+                        <option value="1" selected>清空日志</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-form-item layui-row layui-col-xs12">
+                <label class="layui-form-label required">验证码</label>
+                <div class="layui-input-block">
+                    <input type="text" id="clean_captcha" name="captcha" class="layui-input layui-input-inline-block" lay-verify="required" lay-reqtext="验证码不能为空。" placeholder="请输入验证码" maxlength="4">
+                    <img id="refreshCaptcha" class="validateImg" src="{:url('server.clean/captcha')}" onclick="this.src='{:url(\'server.clean/captcha\')}?seed='+Math.random()">
+                </div>
+            </div>
+
+            <div class="layui-form-item text-center">
+                <button type="submit" class="layui-btn layui-btn-danger layui-btn-sm" lay-submit>清档</button>
+                <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重置</button>
+            </div>
+        </form>
+    </div>
+</div>

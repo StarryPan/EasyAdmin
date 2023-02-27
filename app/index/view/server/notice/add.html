@@ -1,0 +1,85 @@
+<div class="layuimini-container">
+    <form id="app-form" class="layui-form layuimini-form">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">渠道</label>
+            <div class="layui-input-block">
+                <select name="channel_key" lay-verify="required" lay-search="">
+                    <option value=""> 请选择渠道 </option>
+                    {foreach $channel_list as $ckey => $cname}
+                        <option value="{$ckey}">{$cname}</option>
+                    {/foreach}
+                </select>
+                <tip>请选择需要发布的渠道。</tip>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">环境</label>
+            <div class="layui-input-block">
+                <select name="pre_state" lay-verify="required">
+                    <option value="1"> 内网 </option>
+                    <option value="0"> 外网 </option>
+                </select>
+                <tip>请选择需要发布渠道的环境。</tip>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-block">
+                <input type="number" name="sort" lay-reqtext="公告排序不能为空" placeholder="请输入公告的排序" value="0" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">时间</label>
+            <div class="layui-input-block">
+                <div class="layui-input-inline">
+                    <input type="text" name="start_date" class="layui-input" lay-verify="required" lay-reqtext="开始日期不能为空。" autocomplete="off" placeholder="开始日期">
+                </div>
+                <div class="layui-form-mid">-</div>
+                <div class="layui-input-inline">
+                    <input type="text" name="end_date" class="layui-input" lay-verify="required" lay-reqtext="结束日期不能为空。" autocomplete="off" placeholder="结束日期">
+                </div>
+            </div>
+        </div>
+
+        <div class="hr-line"></div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">图片</label>
+            <div class="layui-input-block">
+                <input type="text" name="image" class="layui-input" placeholder="请输入公告的图片" value="">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">标签</label>
+            <div class="layui-input-block">
+                <input type="text" name="tag" class="layui-input" lay-verify="required" lay-reqtext="公告标签不能为空。" placeholder="请输入公告的标签" value="">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">标题</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" class="layui-input" lay-verify="required" lay-reqtext="公告标题不能为空。" placeholder="请输入公告的标题" value="">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label required">内容</label>
+            <div class="layui-input-block">
+                <textarea name="content" class="layui-textarea" rows="11" lay-verify="required" lay-reqtext="公告内容不能为空。" placeholder="请输入公告的内容"></textarea>
+            </div>
+        </div>
+
+        <div class="hr-line"></div>
+
+        <div class="layui-form-item text-center">
+            <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" lay-submit>确认</button>
+            <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重置</button>
+        </div>
+    </form>
+</div>

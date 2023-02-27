@@ -1,0 +1,146 @@
+<div class="layuimini-container">
+    <style>
+        .select-animal-delete {
+            transition: all .3s;
+            -webkit-transition: all .3s;
+        }
+
+        .select-animal-delete:hover {
+            color: white;
+            background-color: #ff5722 !important;
+        }
+    </style>
+    <form id="app-form" class="layui-form layuimini-form">
+
+        <!-- 服务器数量 -->
+        <input type="hidden" id="rew_num" name="rew_num" value="1">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">活动</label>
+            <div class="layui-input-block">
+                <select name="act_type" lay-verify="required" lay-reqtext="请选择活动类型" lay-search>
+                    <option value="">活动类型</option>
+                    {foreach $actTypes as $kv => $vo}
+                        <option value="{$kv}">{$kv}. {$vo}</option>
+                    {/foreach}
+                </select>
+                <tip>请选择所属的活动类型。</tip>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" class="layui-input" lay-verify="required" lay-reqtext="请输入名称" placeholder="请输入名称" value="">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-block">
+                <input type="number" name="sort" class="layui-input" placeholder="排序" value="">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">类型</label>
+            <div class="layui-input-block">
+                <select name="type" lay-search>
+                    <option value="">请选择展示类型</option>
+                    {foreach $rotateTypes as $vk => $vo}
+                        <option value="{$vk}">{$vk}. {$vo}</option>
+                    {/foreach}
+                </select>
+                <tip>选择区分不同的显示模板。</tip>
+            </div>
+        </div>
+        
+        <div class="layui-form-item">
+            <label class="layui-form-label required">轮播图片</label>
+            <div class="layui-input-block">
+                <input type="text" name="small_img" class="layui-input" lay-verify="required" lay-reqtext="请输入轮播图片" placeholder="请输入轮播图片" value="">
+            </div>
+        </div>
+
+        <div class="layui-form-item required">
+            <label class="layui-form-label">背景图片</label>
+            <div class="layui-input-block">
+                <input type="text" name="big_img" class="layui-input" lay-verify="required" lay-reqtext="请输入背景图片" placeholder="请输入背景图片" value="">
+            </div>
+        </div>
+        
+        <div class="layui-form-item required">
+            <label class="layui-form-label">页签文字</label>
+            <div class="layui-input-block">
+                <input type="text" name="tag_tex" class="layui-input" lay-verify="required" lay-reqtext="请输入页签文字" placeholder="请输入背景图片" value="">
+            </div>
+        </div>
+
+        <div class="layui-form-item required">
+            <label class="layui-form-label">按钮文字</label>
+            <div class="layui-input-block">
+                <input type="text" name="btn_tex" class="layui-input" lay-verify="required" lay-reqtext="请输入按钮文字" placeholder="请输入按钮文字" value="">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">活动ID</label>
+            <div class="layui-input-block">
+                <input type="text" name="act_id" class="layui-input" placeholder="请输入相关活动" value="">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">额外参数</label>
+            <div class="layui-input-block">
+                <input type="text" name="param1" class="layui-input" placeholder="请输入额外参数" value="">
+            </div>
+        </div>
+
+        <div class="hr-line"></div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">时间限制</label>
+            <div class="layui-input-block">
+                <div class="layui-input-inline">
+                    <input type="text" name="start_time" class="layui-input" autocomplete="off" placeholder="开始日期" value="">
+                </div>
+                <div class="layui-form-mid">-</div>
+                <div class="layui-input-inline">
+                    <input type="text" name="end_time" class="layui-input" autocomplete="off" placeholder="结束日期" value="">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">跳转目标</label>
+            <div class="layui-input-block">
+                <input type="text" name="skip_to" class="layui-input" placeholder="跳转目标" value="">
+            </div>
+        </div>
+
+        <div class="layui-form-item ">
+            <label class="layui-form-label required">展示状态</label>
+            <div class="layui-input-block">
+                <select name="status" lay-verify="required" lay-reqtext="请选择轮播状态" lay-search>
+                    <option value="1">正常</option>
+                    <option value="2">轮播</option>
+                    <option value="0">关闭</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">描述信息</label>
+            <div class="layui-input-block">
+                <textarea name="desc" class="layui-textarea" placeholder="请输入描述信息"></textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item text-center">
+            <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" lay-submit>确认</button>
+            <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重置</button>
+        </div>
+
+    </form>
+</div>

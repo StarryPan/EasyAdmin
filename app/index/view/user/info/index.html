@@ -1,0 +1,60 @@
+<style>
+    table {
+        table-layout: fixed;
+    }
+    td {
+        width: 100%;
+        word-break: keep-all;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .layui-table-view .layui-table {
+        border-right: none !important;
+    }
+</style>
+<link rel="stylesheet" href="__STATIC__/index/css/jquery.json-viewer.css" media="all">
+
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="layui-row">
+            <form class="layui-form layui-form-pane layui-col-md12 x-so">
+                <label class="layui-form-label">服务器</label>
+                <div class="layui-input-inline">
+                    <select name="server_id" lay-verify="required" lay-reqtext="请选择服务器。" lay-search="">
+                        <option value="">请选择服务器</option>
+                        {foreach $cfgs.server_list as $skey => $sname}
+                            <option value="{$skey}" {if ($query.server_id ?? '') == $skey}selected="" {/if}>{$sname}</option>
+                        {/foreach}
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <input type="text" name="search" class="layui-input" lay-verify="required" lay-reqtext="查询用户ID或昵称" placeholder="请输入用户ID | 昵称">
+                </div>
+                <button class="layui-btn" lay-submit>
+                    <i class="layui-icon" title="查询">&#xe615;</i>
+                </button>
+            </form>
+        </div>
+
+        <br/>
+        
+        <div class="layui-tab layui-tab-brief layui-hide" lay-filter="docDemoTabBrief">
+            <ul class="layui-tab-title">
+                <template v-for="(val, index) in tab_title">
+                    <li v-if="index == 0" class="layui-this" :tab-table="val.tkey">{{val.tname}}</li>
+                    <li v-else :tab-table="val.tkey">{{val.tname}}</li>
+                </template>
+            </ul>
+            <div class="layui-tab-content">
+                <template v-for="(val, index) in tab_title">
+                    <div v-if="index == 0" class="layui-tab-item layui-show">
+                        <table :id="val.tkey" class="layui-table" :lay-filter="val.tkey"></table>
+                    </div>
+                    <div v-else class="layui-tab-item">
+                        <table :id="val.tkey" class="layui-table" :lay-filter="val.tkey"></table>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+</div>

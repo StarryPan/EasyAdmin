@@ -1,0 +1,44 @@
+<style>
+    .layui-table-view .layui-table {
+        border-right: none !important;
+    }
+</style>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="layui-row">
+            <form class="layui-form layui-form-pane layui-col-md12 x-so">
+                <label class="layui-form-label">服务器</label>
+                <div class="layui-input-inline">
+                    <select name="server_id" lay-verify="required" lay-reqtext="请选择服务器。" lay-search="">
+                        <option value="">请选择服务器</option>
+                        {foreach $cfgs.server_list as $skey => $sname}
+                            <option value="{$skey}" {if ($query.server_id ?? '') == $skey}selected="" {/if}>{$sname}</option>
+                        {/foreach}
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="repeat" lay-search="">
+                        <option value="1" {if ($query.repeat ?? '') == 1}selected="" {/if}>IP去重</option>
+                        <option value="0" {if ($query.repeat ?? '') == 0}selected="" {/if}>IP未去重</option>
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <input type="text" name="start" class="layui-input" lay-verify="required" lay-reqtext="起始范围日期不能为空。" autocomplete="off" placeholder="请选择起始日期" value="">
+                </div>
+                <div class="layui-input-inline">
+                    <input type="text" name="end" class="layui-input" lay-verify="required" lay-reqtext="结束范围日期不能为空。" autocomplete="off" placeholder="请选择结束日期" value="">
+                </div>
+                <div class="layui-input-inline">
+                    <input type="number" name="exchange_rate" class="layui-input" lay-verify="required" lay-reqtext="汇率不能为空。" placeholder="请输入汇率" value="{$query.count ?? ''}">
+                </div>
+                <button class="layui-btn" lay-submit="false" title="查询">
+                    <i class="layui-icon">&#xe615;</i>
+                </button>
+            </form>
+        </div>
+
+        <br/>
+        
+        <table id="currentTable" class="layui-table layui-hide" lay-filter="currentTable"></table>
+    </div>
+</div> 

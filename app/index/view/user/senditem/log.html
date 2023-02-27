@@ -1,0 +1,11 @@
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <input type="hidden" id="admin_list" value="{$adminList}">
+        <input type="hidden" id="server_list" value="{$serverList}">
+        <input type="hidden" id="config_items" value="{$configItems}">
+        <table id="currentTable" class="layui-table layui-hide" 
+            data-auth-copy="{:auth('user.senditem/copy')}"
+            lay-filter="currentTable">
+        </table>
+    </div>
+</div>

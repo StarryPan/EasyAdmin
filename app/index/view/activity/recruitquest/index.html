@@ -1,0 +1,14 @@
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <input type="hidden" id="goal_list" value="{$goalList}">
+        <input type="hidden" id="limit_list" value="{$limitList}">
+        <input type="hidden" id="config_items" value="{$configItems}">
+        <table id="currentTable" class="layui-table layui-hide"
+               data-auth-add="{:auth('activity.recruit/add')}"
+               data-auth-edit="{:auth('activity.recruit/edit')}"
+               data-auth-copy="{:auth('activity.recruit/copy')}"
+               data-auth-delete="{:auth('activity.recruit/delete')}"
+               lay-filter="currentTable">
+        </table>
+    </div>
+</div>

@@ -1,0 +1,204 @@
+<style>
+    .layui-unselect .layui-layedit-tool {
+        display: none !important;
+    }
+</style>
+<div class="layuimini-container" style="display: none;">
+    <div class="layuimini-main">
+        <form id="app-form" class="layui-form layuimini-form">
+
+            <!-- 奖励数量 -->
+            <input type="hidden" name="rew_num" id="rew_num" value="2">
+
+            <!-- 重发奖励 -->
+            <input type="hidden" id="copy_rews" value="{$row.rewards??''}">
+
+            <div class="layui-form-item layui-row layui-col-xs12">
+                <label class="layui-form-label required">服务器</label>
+                <div class="layui-input-block">
+                    <select name="server_id" lay-verify="required" lay-reqtext="请选择服务器。" lay-filter="select-server" lay-search>
+                        <option value="">请选择服务器</option>
+                        {foreach $serverList as $vo}
+                            <option value="{$vo.id}" is_lan="{$vo.is_lan}" {if ($row.server_id??'') == $vo.id}selected{/if}>{$vo.id}. {$vo.name}</option>
+                        {/foreach}
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-form-item layui-row">
+                <label class="layui-form-label required">邮件类型</label>
+                <div class="layui-input-block">
+                    <select name="mtype" lay-verify="required" lay-reqtext="请选择邮件类型。" lay-search>
+                        <option value="">请选择邮件类型</option>
+                        {foreach $mail_types as $mt_id => $mt_name}
+                            <option value="{$mt_id}" {if ($row.mtype??'') == $mt_id}selected{/if}>{$mt_name}</option>
+                        {/foreach}
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-form-item layui-row">
+                <label class="layui-form-label required">目标类型</label>
+                <div class="layui-input-block">
+                    <select name="target_type" lay-verify="required" lay-reqtext="请选择目标类型。" lay-filter="select-target" lay-search>
+                        <option value="">请选择目标类型</option>
+                        {foreach $target_types as $tt_id => $tt_name}
+                            <option value="{$tt_id}" {if ($row.target_type??'') == $tt_id}selected{/if}>{$tt_name}</option>
+                        {/foreach}
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-form-item" v-if="target_type == 1">
+                <label class="layui-form-label required">达成等级</label>
+                <div class="layui-input-block">
+                    <input type="number" name="limit_lv" class="layui-input" lay-verify="required" lay-reqtext="达成等级不能为空。" placeholder="请输入达成指定的等级" value="{$row.target??''}">
+                </div>
+            </div>
+
+            <div class="layui-form-item" v-if="target_type == 2">
+                <label class="layui-form-label required">登陆天数</label>
+                <div class="layui-input-block">
+                    <input type="number" name="login_days" class="layui-input" lay-verify="required" lay-reqtext="登陆天数不能为空。" placeholder="请输入达成指定的登陆天数" value="{$row.target??''}">
+                </div>
+            </div>
+
+            <div class="layui-form-item" v-if="target_type == 3">
+                <label class="layui-form-label required">登陆时间</label>
+                <div class="layui-input-block">
+                    <div class="layui-input-inline">
+                        <input type="text" name="login_start" class="layui-input" lay-verify="required" lay-reqtext="登陆开始日期不能为空。" autocomplete="off" placeholder="登陆开始日期" value="{$row.target??''}">
+                    </div>
+                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline">
+                        <input type="text" name="login_end" class="layui-input" lay-verify="required" lay-reqtext="登陆结束日期不能为空。" autocomplete="off" placeholder="登陆结束日期" value="{$row.target??''}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item" v-if="target_type == 4">
+                <label class="layui-form-label required">注册时间</label>
+                <div class="layui-input-block">
+                    <div class="layui-input-inline">
+                        <input type="text" name="reg_start" class="layui-input" lay-verify="required" lay-reqtext="注册开始日期不能为空。" autocomplete="off" placeholder="注册开始日期" value="{$row.target??''}">
+                    </div>
+                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline">
+                        <input type="text" name="reg_end" class="layui-input" lay-verify="required" lay-reqtext="注册结束日期不能为空。" autocomplete="off" placeholder="注册结束日期" value="{$row.target??''}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="hr-line"></div>
+
+            <div class="layui-form-item" v-if="!is_lan">
+                <label class="layui-form-label required">邮件标题</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" class="layui-input" lay-verify="required" lay-reqtext="邮件标题不能为空。" placeholder="请输入邮件标题（建议不要超出20字）" value="{$row.title??''}">
+                </div>
+            </div>
+
+            <div class="layui-form-item" v-if="is_lan">
+                <label class="layui-form-label required">邮件标题</label>
+                <div class="layui-input-block">
+                    <textarea name="lan_title" class="layui-textarea" rows="7">*CN_LAN {
+    中文标题
+}
+
+*EN_LAN {
+    英文标题
+}</textarea>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">发送人员</label>
+                <div class="layui-input-block">
+                    <input type="text" name="sender" class="layui-input" placeholder="请输入邮件发送的人员" value="{$row.sender??'系统'}">
+                </div>
+            </div>
+            
+            <div class="layui-form-item">
+                <label class="layui-form-label">过期天数</label>
+                <div class="layui-input-block">
+                    <input type="number" name="expire_day" class="layui-input" placeholder="请输入邮件过期的天数" value="{$row.expire_day??''}">
+                    <tip>默认为永不过期</tip>
+                </div>
+            </div>
+    
+            <div class="layui-form-item" v-if="!is_lan">
+                <label class="layui-form-label required">邮件内容</label>
+                <div class="layui-input-block">
+                    <textarea name="content" class="layui-textarea">{$row.content??''}</textarea>
+                </div>
+            </div>
+
+            <div class="layui-form-item" v-if="is_lan">
+                <label class="layui-form-label">邮件内容</label>
+                <div class="layui-input-block">
+                    <textarea name="lan_content" class="layui-textarea" rows="7">*CN_LAN {
+    中文内容
+}
+
+*EN_LAN {
+    英文内容
+}</textarea>
+                </div>
+            </div>
+
+            <div class="hr-line"></div>
+
+            <div class="layui-form-item layui-row layui-col-xs12">
+                <label class="layui-form-label">添加道具</label>
+                <div class="layui-input-block">
+                    <select lay-filter="add-rews">
+                        <option value="">请选择添加的数量</option>
+                        <option value="1">添加 1 条</option>
+                        <option value="2">添加 2 条</option>
+                        <option value="5">添加 5 条</option>
+                        <option value="10">添加 10 条</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 奖励选项 -->
+            <div class="layui-form-item layui-row layui-col-xs12">
+                <label class="layui-form-label required">邮件道具</label>
+                <div class="layui-input-block">
+                    <table class="layui-table" v-for="( item, index ) in rew_list">
+                        <tbody>
+                            <tr align="center">
+                                <td width="20" rowspan="3" title="删除道具" class="select-animal-delete" v-on:click="delete_rew( index )">
+                                    <i class="layui-icon">&#xe640;</i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="60%">
+                                    <select v-bind:name="item.key_itemid" lay-search>
+                                        <option value="">请选择道具 {{index + 1}}</option>
+                                        <template v-for="(cfig_val, cfig_key) in config_items">
+                                            <option v-if="cfig_val.id == item.itemid" selected="selected" 
+                                                v-bind:value="cfig_val.id">id: {{cfig_val.id}} | name: {{cfig_val.name}} | desc: {{cfig_val.desc}}</option>
+                                            <option v-else v-bind:value="cfig_val.id">id: {{cfig_val.id}} | name: {{cfig_val.name}} | desc: {{cfig_val.desc}}</option>
+                                        </template>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input v-if="item.itemcnt > 0" class="layui-input" type="number" placeholder="请输入数量" v-bind:name="item.key_itemcnt" v-bind:id="item.key_itemcnt" v-bind:value="item.itemcnt">
+                                    <input v-else class="layui-input" type="number" placeholder="请输入数量" v-bind:name="item.key_itemcnt" v-bind:id="item.key_itemcnt">
+                                    <div class="table-right-input-label">数量</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="layui-form-item text-center">
+                <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" lay-submit>发送</button>
+                <button type="submit" class="layui-btn layui-btn-sm target-list-btn">列表</button>
+            </div>
+
+        </form>
+    </div>
+</div>

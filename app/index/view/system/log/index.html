@@ -1,0 +1,27 @@
+<div class="layuimini-container">
+    <div class="layuimini-main" id="app">
+
+        <!-- 管理员列表 -->
+        <input type="hidden" id="admin_list" value="{$admin_list}">
+
+        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+            <ul class="layui-tab-title">
+                <li class="layui-this" tab-table="systemlog">系统日志</li>
+                <li tab-table="curllog">请求日志</li>
+                <li tab-table="errorlog">报错日志</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    {include file="system/log/systemlog" /}
+                </div>
+                <div class="layui-tab-item">
+                    {include file="system/log/curllog" /}
+                </div>
+                <div class="layui-tab-item">
+                    {include file="system/log/errorlog" /}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

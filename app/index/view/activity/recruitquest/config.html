@@ -1,0 +1,101 @@
+<style>
+    .channel-config, .layui-form-pane {
+        display: none;
+    }
+</style>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <button class="layui-btn layui-btn-sm layuimini-btn-primary" data-refresh="currentTableRenderId"><i class="fa fa-refresh"></i> </button>
+        <button class="layui-btn layui-btn-sm layui-btn-green" data-open="activity.publish/index?id={$info.id}" data-title="发布活动"><i class="fa fa-paper-plane-o"></i> 发布活动</button>
+        
+        <form class="layui-form hide">
+            <table class="layui-table" lay-skin="line">
+                <tr class="tr-loading">
+                    <th colspan="9" style="text-align: center;padding-top: 12px;">
+                        <i class="layui-icon layui-anim layui-anim-rotate layui-anim-loop layui-icon-loading" style="font-size: 25px;"></i>
+                    </th>
+                </tr>
+
+                <tbody class="channel-config">
+                    <tr>
+                        <td width="30%">
+                            ID( id )
+                        </td>
+                        <td>
+                            <input type="text" name="id" disabled placeholder="请填写ID" class="layui-input" value="{$info.id ?? ''}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">
+                            类型( atype )
+                        </td>
+                        <td>
+                            <select name="atype" lay-verify="required" lay-search="" disabled>
+                                {foreach $atypeList as $ckey => $cname}
+                                    <option value="{$ckey}" {if $info.atype == $ckey}selected="" {/if}>{$cname}</option>
+                                {/foreach}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">
+                            标题( title )
+                        </td>
+                        <td>
+                            <input type="text" name="title" placeholder="请填写名称" class="layui-input" value="{$info.title ?? ''}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">
+                            状态( status )
+                        </td>
+                        <td>
+                            <select name="status" lay-verify="required" lay-search="">
+                                <option value="0" {if ($info.status ?? 0) == '0'}selected="" {/if}> 正常 </option>
+                                <option value="1" {if ($info.status ?? 0) == '1'}selected="" {/if}> 关闭 </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">
+                            开启类型( open_type )
+                        </td>
+                        <td>
+                            <select name="open_type" lay-verify="required" lay-search="">
+                                {foreach $openTypes as $ckey => $cname}
+                                    <option value="{$ckey}" {if $info.open_type == $ckey}selected="" {/if}>{$cname}</option>
+                                {/foreach}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">
+                            开启数值( open_value )
+                        </td>
+                        <td>
+                            <input type="text" name="open_value" placeholder="请填写开启数值" class="layui-input" value="{$info.open_value ?? ''}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">
+                            创建时间( create_time )
+                        </td>
+                        <td>
+                            <input type="text" disabled class="layui-input" value="{$info.create_time ?? ''}">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            <button type="submit" class="layui-btn" lay-submit>
+                                保存配置
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="layui-row">
+            <form class="layui-form layui-form-pane layui-col-md12 x-so">
+                <label class="layui-form-label">服务器</label>
+                <div class="layui-input-inline">
+                    <select name="server_id" lay-verify="required" lay-reqtext="请选择服务器。" lay-search="">
+                        <option value="">请选择服务器</option>
+                        {foreach $cfgs.server_list as $skey => $sname}
+                            <option value="{$skey}" {if ($query.server_id ?? '') == $skey}selected="" {/if}>{$sname}</option>
+                        {/foreach}
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="table_name" lay-search="">
+                        <option value="">请选择日志表</option>
+                        {foreach $cfgs.logtable_list as $lkey => $lname}
+                            <option value="{$lkey}" {if ($query.table_name ?? '') == $lkey}selected="" {/if}>{$lkey} {$lname}</option>
+                        {/foreach}
+                    </select>
+                </div>
+                <button class="layui-btn" lay-submit>
+                    <i class="layui-icon" title="查询">&#xe615;</i>
+                </button>
+                <button class="layui-btn layui-btn-normal" lay-submit="user.logquery/refreshLogTableList" title-confirm="确认要更新日志表吗？">更新日志表</button>
+            </form>
+        </div>
+
+        <br/>
+        
+        <table id="currentTable" class="layui-table layui-hide" lay-filter="currentTable"></table>
+    </div>
+</div>

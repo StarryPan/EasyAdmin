@@ -1,0 +1,11 @@
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <input type="hidden" id="config_items" value="{$configItems}">
+        <table id="currentTable" class="layui-table layui-hide"
+               data-auth-add="{:auth('activity.registersign/add')}"
+               data-auth-edit="{:auth('activity.registersign/edit')}"
+               data-auth-delete="{:auth('activity.registersign/delete')}"
+               lay-filter="currentTable">
+        </table>
+    </div>
+</div>
