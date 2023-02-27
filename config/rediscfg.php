@@ -1,4 +1,5 @@
 <?php
+use think\facade\Env;
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK ]
 // +----------------------------------------------------------------------
@@ -14,19 +15,17 @@
 // +----------------------------------------------------------------------
 
 return [
-    'host'       => '127.0.0.1',
-    'port'       => 6379,
-    'password'   => '1234567',
-    'select'     => 10,
-	'timeout'    => 0,
-	'expire'     => 0,
+    'host'       => Env::get('redis.host', '127.0.0.1'),
+    'port'       => (int)Env::get('redis.port', 6379),
+    'password'   => Env::get('redis.password', '123456'),
+    'select'     => (int)Env::get('redis.select', 0),
+	'timeout'    => (int)Env::get('redis.timeout', 0),
+	'expire'     => (int)Env::get('redis.expire', 0),
 	'persistent' => true,
-	'prefix'     => '',
+	'prefix'     => Env::get('redis.prefix', ''),
     'serialize'  => true,
 	
-	
-	
-	'MASTER_ADDR' => '127.0.0.1',//主服务器
+	'MASTER_ADDR' => Env::get('redis.host', '127.0.0.1'),//主服务器
 	'LAN_IP' => '127.0.0.1'//本机ip，  如果本机ip = 主服务器 ip ， 本机为主服务器
 	
 ];
